@@ -1,8 +1,7 @@
-import org.apache.tools.ant.filters.ReplaceTokens
-
 plugins {
     id 'java'
     id 'org.jetbrains.kotlin.jvm' version '1.7.0'
+    id 'maven-publish'
 }
 
 //group = 'com.github.m4kvn'
@@ -27,6 +26,11 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
+jar {
+    exclude "META-INF/versions/9/module-info.class"
+    from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+}
+
 compileKotlin {
     kotlinOptions {
         jvmTarget = "1.8"
@@ -36,5 +40,26 @@ compileKotlin {
 compileTestKotlin {
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            groupId = 'com.github.m4kvn'
+            artifactId = 'spigot-nms'
+            version = '1.0.0'
+        }
+    }
+    repositories {
+        maven {
+            name = 'GitHubPackages'
+            url = 'https://maven.pkg.github.com/m4kvn/spigot-nms'
+            credentials {
+                username = System.getenv('GITHUB_ACTOR')
+                password = System.getenv('GITHUB_TOKEN')
+            }
+        }
     }
 }
