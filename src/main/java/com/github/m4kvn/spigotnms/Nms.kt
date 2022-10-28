@@ -22,11 +22,9 @@ interface Nms {
     fun breakBlock(player: Player, block: Block)
     fun dropItemStack(player: Player, itemStack: ItemStack)
     fun dropExperience(player: Player, amount: Int)
-
-    companion object {
-        val instance: Nms by lazy { NmsImpl() }
-    }
 }
+
+fun nms(): Lazy<Nms> = lazy { NmsImpl() }
 
 private class NmsImpl : Nms {
 
