@@ -1,0 +1,16 @@
+Properties properties = new Properties()
+def localPropertiesFile = project.rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    properties.load(localPropertiesFile.newDataInputStream())
+}
+ext {
+    info = [
+            group: 'com.github.m4kvn',
+            version: properties.getProperty('GITHUB_REF_NAME') ?: System.getenv('GITHUB_REF_NAME')
+    ]
+    github = [
+            url: uri('https://maven.pkg.github.com/m4kvn/spigot-nms'),
+            username: properties.getProperty('GITHUB_ACTOR') ?: System.getenv('GITHUB_ACTOR'),
+            password: properties.getProperty('GITHUB_TOKEN') ?: System.getenv('GITHUB_TOKEN'),
+    ]
+}
