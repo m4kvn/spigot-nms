@@ -4,6 +4,9 @@ if (localPropertiesFile.exists()) {
     properties.load(localPropertiesFile.newDataInputStream())
 }
 ext {
+    versions = [
+            spigot: '1.19-R0.1-SNAPSHOT',
+    ]
     info = [
             group: 'com.github.m4kvn',
             version: properties.getProperty('GITHUB_REF_NAME') ?: System.getenv('GITHUB_REF_NAME')
@@ -12,5 +15,11 @@ ext {
             url: uri('https://maven.pkg.github.com/m4kvn/spigot-nms'),
             username: properties.getProperty('GITHUB_ACTOR') ?: System.getenv('GITHUB_ACTOR'),
             password: properties.getProperty('GITHUB_TOKEN') ?: System.getenv('GITHUB_TOKEN'),
+    ]
+    deps = [
+            spigot: "org.spigotmc:spigot:${versions.spigot}",
+            log4j: 'org.apache.logging.log4j:log4j-core:2.19.0',
+            snakeyaml: 'org.yaml:snakeyaml:1.33',
+            kotlin: "org.jetbrains.kotlin:kotlin-stdlib-jdk8",
     ]
 }
