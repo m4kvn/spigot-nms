@@ -1,6 +1,7 @@
 name: Build plugin
 on: push
-
+env:
+  SPIGOT_VERSION: 1.19
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,12 +30,12 @@ jobs:
         id: cache-spigot
         uses: actions/cache@v3
         with:
-          path: ./server/spigot-1.19.jar
-          key: spigot-1.19
+          path: ./server/spigot-${{ env.SPIGOT_VERSION }}.jar
+          key: spigot-${{ env.SPIGOT_VERSION }}
 
       - name: Initialize repositories
         if: steps.cache-spigot.outputs.cache-hit != 'true'
-        run: java -jar BuildTools.jar --rev 1.19
+        run: java -jar BuildTools.jar --rev ${{ env.SPIGOT_VERSION }}
         working-directory: ./server
 
       - name: Setup Gradle
