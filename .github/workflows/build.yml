@@ -14,10 +14,26 @@ jobs:
           java-version: '18'
           distribution: 'adopt'
 
+      - name: Cache BuildTools.jar
+        id: cache-buildtools
+        uses: actions/cache@v3
+        with:
+          path: ./server/BuildTools.jar
+          key: buildtools
+
       - name: Download BuildTools.jar
+        if: steps.cache-buildtools.outputs.cache-hit != 'true'
         run: wget -O ./server/BuildTools.jar https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar
 
+      - name: Cache Spiogt
+        id: cache-spigot
+        uses: actions/cache@v3
+        with:
+          path: ./server/spigot-1.19.jar
+          key: spigot-1.19
+
       - name: Initialize repositories
+        if: steps.cache-spigot.outputs.cache-hit != 'true'
         run: java -jar BuildTools.jar --rev 1.19
         working-directory: ./server
 
