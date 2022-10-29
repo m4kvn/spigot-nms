@@ -30,7 +30,7 @@ jobs:
         id: cache-spigot
         uses: actions/cache@v3
         with:
-          path: ./server/spigot-${{ env.SPIGOT_VERSION }}.jar
+          path: ~/.m2/repository
           key: spigot-${{ env.SPIGOT_VERSION }}
 
       - name: Initialize repositories
