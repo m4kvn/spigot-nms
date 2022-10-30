@@ -4,8 +4,9 @@ if (localPropertiesFile.exists()) {
     properties.load(localPropertiesFile.newDataInputStream())
 }
 ext {
+    def version_spigot = properties.getProperty('SPIGOT_VERSION') ?: System.getenv('SPIGOT_VERSION')
     versions = [
-            spigot: '1.19-R0.1-SNAPSHOT',
+            spigot: "${version_spigot}-R0.1-SNAPSHOT",
     ]
     info = [
             group: 'com.github.m4kvn',
