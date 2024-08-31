@@ -20,7 +20,7 @@ ext {
     deps = [
             spigot: "org.spigotmc:spigot:${versions.spigot}",
             log4j: 'org.apache.logging.log4j:log4j-core:2.19.0',
-            snakeyaml: 'org.yaml:snakeyaml:1.33',
+            snakeyaml: 'org.yaml:snakeyaml:2.3',
             kotlin: "org.jetbrains.kotlin:kotlin-stdlib-jdk8",
     ]
 }
